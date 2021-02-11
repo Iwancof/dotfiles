@@ -29,8 +29,7 @@ setopt list_packed
 setopt nolistbeep
 
 ## 履歴から候補を表示
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-
+source ~/.zsh/autosuggestions/zsh-autosuggestions.zsh 
 # Alias とか
 
 ## 上書き確認

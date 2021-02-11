@@ -1,17 +1,21 @@
-#/bin/sh
+#!/bin/zsh
 
 set -ue
 
-DPATH=~/.dotfiles
+DPATH=~/dotfiles
 
-PACKAGE="apt install"
+PACKAGE="apt install" 
 function install_surface() {
-	${PACKAGE} git
+	eval ${PACKAGE} git
 
 	echo "settings zsh"
-	${PACKAGE} zsh
-	mkdir ~/.zsh
-	git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh
+	eval ${PACKAGE} zsh
+	mkdir ~/.zsh -p
+	if [ -d ~/.zsh/autosuggestions/ ]; then
+		echo "Already cloned"
+	else
+		git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/autosuggestions --progress
+	fi
 	cat $DPATH/zshrc_config/zshrc_surface > $DPATH/.zshrc
 }
 
@@ -20,7 +24,7 @@ function copy_settings() {
 	do
 		[ "$f" = ".git" ] && continue
 
-		ln -snv "$DPATH/$f" "$HOME"/"$f"
+		ln -snvf "$DPATH/$f" "$HOME"/"$f"
 	done
 }
 
@@ -35,6 +39,7 @@ fi
 
 if [ $1 = "surface" ]; then
 	install_surface
+	copy_settings
 else 
 	echo "Unknown option"
 fi
