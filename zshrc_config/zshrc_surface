@@ -1,0 +1,44 @@
+
+export SHELL=/bin/zsh
+
+# カラー表示を有効にする
+autoload colors
+colors
+
+# echo "${fg[red]} red text"
+
+# シェルの設定とか
+## U: aliasの上書き防止。z: zsh形式
+autoload -Uz compinit && compinit
+HISTFILE=~/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
+
+## 連続に実行した場合の履歴をまとめる
+setopt hist_ignore_dups 
+setopt hist_ignore_all_dups
+## 履歴ファイルを共有
+setopt share_history
+## ディレクトリ名で移動
+setopt auto_cd
+## 移動履歴を閲覧
+setopt auto_pushd
+## 表示を詰める
+setopt list_packed
+## beepを消す
+setopt nolistbeep
+
+## 履歴から候補を表示
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Alias とか
+
+## 上書き確認
+alias cp='cp -i'
+## vim -> neovim
+alias vim=nvim
+
+
+
+
+
